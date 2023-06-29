@@ -6,6 +6,10 @@
 import chalk from 'chalk';
 
 // Ejemplo de uso de Chalk
-console.log(chalk.blue('Texto en azul'));
-console.log(chalk.green('Texto en verde'));
-console.log(chalk.red('Texto en rojo'));
+export default function hola() {
+  console.log(chalk.blue('Texto en azul'));
+  console.log(chalk.green('Texto en verde'));
+  console.log(chalk.red('Texto en rojo'));
+}
+
+hola();
