@@ -63,6 +63,16 @@ console.log(`test9:
   Su extensión es...
   ${testNine}`);
 
+console.log(chalk.bgYellow('SYNC DIR'));
+const directoryPath = './tryOut'; // Ruta de la carpeta
+const files = fs.readdirSync(directoryPath);
+console.log(`Archivos encontrados en la carpeta ${directoryPath}:
+`);
+files.forEach((file) => {
+  const pathFile = path.join(directoryPath, file);
+  console.log(pathFile);
+});
+
 // ASYNC
 filePath = './tryOut/file.md';
 fs.readFile(filePath, 'utf8', (err, data) => {
@@ -144,12 +154,26 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     ${testTen}`);
 });
 
+fs.readdir(directoryPath, (err, filesA) => {
+  if (err) {
+    console.error('Error al leer la carpeta:', err);
+    return;
+  }
+  console.log(chalk.bgMagenta('ASYNC DIR'));
+  console.log(`Archivos encontrados en la carpeta ${directoryPath}:
+  `);
+  filesA.forEach((file) => {
+    const filePathA = path.join(directoryPath, file);
+    console.log(filePathA);
+  });
+});
+
 // POR TERMINAL
 // Obtener las rutas de archivo desde los argumentos de línea de comandos
-const filePaths = process.argv.slice(2);
+// const filePaths = process.argv.slice(2);
 
 // Leer cada archivo de forma asíncrona y mostrar su contenido
-filePaths.forEach((filePathUser) => {
+/* filePaths.forEach((filePathUser) => {
   fs.readFile(filePathUser, 'utf8', (err, content) => {
     if (err) {
       console.error(`Error al leer el archivo ${filePathUser}: ${err}`);
@@ -161,6 +185,24 @@ filePaths.forEach((filePathUser) => {
       ${content}
       Su extensión es...
       ${ext}`);
-    console.log('---');
+  });
+}); */
+
+// Obtener las rutas de la carpeta desde los argumentos de línea de comandos
+const directoryPathUser = process.argv.slice(2).toString();
+console.log(chalk.bgRedBright(typeof directoryPathUser));
+console.log(chalk.bgRedBright(typeof directoryPath));
+
+fs.readdir(directoryPathUser, (err, filesUser) => {
+  if (err) {
+    console.error('Error al leer la carpeta:', err);
+    return;
+  }
+  console.log(chalk.bgCyanBright('POR TERMINAL DIR'));
+  console.log(`Archivos encontrados en la carpeta ${directoryPathUser}:
+  `);
+  filesUser.forEach((file) => {
+    const filePathA = path.join(directoryPathUser, file);
+    console.log(filePathA);
   });
 });
