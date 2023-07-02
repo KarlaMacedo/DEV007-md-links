@@ -7,18 +7,26 @@ const mainDirectory = './tryOut';
 
 // SYNC
 function listFilesRecursiveSync(directory) {
-  const files = fs.readdirSync(directory);
+  try {
+    const files = fs.readdirSync(directory);
 
-  files.forEach((file) => {
-    const filePath = path.join(directory, file);
-    const stats = fs.statSync(filePath);
+    files.forEach((file) => {
+      const filePath = path.join(directory, file);
+      try {
+        const stats = fs.statSync(filePath);
 
-    if (stats.isFile()) {
-      console.log(chalk.blue(filePath));
-    } else if (stats.isDirectory()) {
-      listFilesRecursiveSync(filePath);
-    }
-  });
+        if (stats.isFile()) {
+          console.log(chalk.blue(filePath));
+        } else if (stats.isDirectory()) {
+          listFilesRecursiveSync(filePath);
+        }
+      } catch (err) {
+        console.error('Error al obtener la estadística del archivo:', err);
+      }
+    });
+  } catch (err) {
+    console.error('Error al leer la carpeta:', err);
+  }
 }
 
 // Uso:

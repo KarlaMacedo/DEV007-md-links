@@ -170,10 +170,10 @@ fs.readdir(directoryPath, (err, filesA) => {
 
 // POR TERMINAL
 // Obtener las rutas de archivo desde los argumentos de línea de comandos
-// const filePaths = process.argv.slice(2);
+const filePaths = process.argv.slice(2);
 
 // Leer cada archivo de forma asíncrona y mostrar su contenido
-/* filePaths.forEach((filePathUser) => {
+filePaths.forEach((filePathUser) => {
   fs.readFile(filePathUser, 'utf8', (err, content) => {
     if (err) {
       console.error(`Error al leer el archivo ${filePathUser}: ${err}`);
@@ -186,7 +186,7 @@ fs.readdir(directoryPath, (err, filesA) => {
       Su extensión es...
       ${ext}`);
   });
-}); */
+});
 
 // Obtener las rutas de la carpeta desde los argumentos de línea de comandos
 const directoryPathUser = process.argv.slice(2).toString();
