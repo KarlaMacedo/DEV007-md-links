@@ -1,10 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import chalk from 'chalk';
 import fs from 'fs';
-import { marked } from 'marked';
-import cheerio from 'cheerio';
-import { JSDOM } from 'jsdom';
-// import MarkdownIt from 'markdown-it';
+// import { marked } from 'marked';
+// import cheerio from 'cheerio';
+// import { JSDOM } from 'jsdom';
+import MarkdownIt from 'markdown-it';
 
 import getFiles from './getFiles.js';
 
@@ -18,22 +18,11 @@ console.log(chalk.bgRed(typeof filesArray));
 console.log(chalk.bgRed(filesArray));
 
 const mdlinks = (files) => {
-  // const md = new MarkdownIt();
+  const md = new MarkdownIt();
 
   files.forEach((content) => {
     const markdownContent = fs.readFileSync(content, 'utf-8');
-    const htmlContent = marked(markdownContent, { headerIds: false, mangle: false });
-    const dom = new JSDOM(htmlContent, { resources: 'usable' });
-    const $ = cheerio.load(dom.window.document.body.innerHTML);
-    const links = [];
-    $('a').each((index, element) => {
-      const text = $(element).text();
-      const url = $(element).attr('href');
-      links.push({ text, url });
-    });
-
-    // MARKDOWN IT
-    /* const tokens = md.parse(markdownContent);
+    const tokens = md.parse(markdownContent);
     console.log(chalk.bgGray(tokens));
     const links = [];
     console.log(chalk.yellow(links));
@@ -46,7 +35,7 @@ const mdlinks = (files) => {
           links.push(hrefAttr[1]);
         }
       }
-    }); */
+    });
 
     // MARKED Y JSDOM
     /* const html = marked(markdownContent, { headerIds: false, mangle: false });
@@ -64,7 +53,7 @@ const mdlinks = (files) => {
     console.log(`Enlaces encontrados en: ${content} 
       `);
     links.forEach((linked) => {
-      console.log(chalk.magenta(linked.url));
+      console.log(chalk.magenta(linked));
     });
   });
 };
