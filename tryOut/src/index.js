@@ -14,7 +14,7 @@ hola();
 
 // SYNC
 console.log(chalk.bgYellow('SYNC'));
-let filePath = './tryOut/file.md';
+let filePath = '../tryOut/file.md';
 const test1 = fs.readFileSync(filePath, 'utf8');
 const testOne = path.extname(filePath);
 console.log(`test1: 
@@ -24,7 +24,7 @@ console.log(`test1:
   ${testOne}`);
 
 console.log(chalk.bgYellow('SYNC'));
-filePath = './tryOut/file11.md';
+filePath = '../tryOut/file11.md';
 const test2 = fs.readFileSync(filePath, 'utf8');
 const testTwo = path.extname(filePath);
 console.log(`test2: 
@@ -34,7 +34,7 @@ console.log(`test2:
   ${testTwo}`);
 
 console.log(chalk.bgYellow('SYNC'));
-filePath = './tryOut/file11.txt';
+filePath = '../tryOut/file11.txt';
 const test3 = fs.readFileSync(filePath, 'utf8');
 const testThree = path.extname(filePath);
 console.log(`test3: 
@@ -44,7 +44,7 @@ console.log(`test3:
   ${testThree}`);
 
 console.log(chalk.bgYellow('SYNC'));
-filePath = './tryOut/try/file22.md';
+filePath = '../tryOut/try/file22.md';
 const test4 = fs.readFileSync(filePath, 'utf8');
 const testFour = path.extname(filePath);
 console.log(`test4: 
@@ -54,7 +54,7 @@ console.log(`test4:
   ${testFour}`);
 
 console.log(chalk.bgYellow('SYNC'));
-filePath = './tryOut/file11.doc';
+filePath = '../tryOut/file11.doc';
 const test9 = fs.readFileSync(filePath, 'utf8');
 const testNine = path.extname(filePath);
 console.log(`test9: 
@@ -64,7 +64,7 @@ console.log(`test9:
   ${testNine}`);
 
 console.log(chalk.bgYellow('SYNC DIR'));
-const directoryPath = './tryOut'; // Ruta de la carpeta
+const directoryPath = '../tryOut'; // Ruta de la carpeta
 const files = fs.readdirSync(directoryPath);
 console.log(`Archivos encontrados en la carpeta ${directoryPath}:
 `);
@@ -74,7 +74,7 @@ files.forEach((file) => {
 });
 
 // ASYNC
-filePath = './tryOut/file.md';
+filePath = '../tryOut/file.md';
 fs.readFile(filePath, 'utf8', (err, data) => {
   if (err) {
     console.error(err);
@@ -90,7 +90,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     ${testFive}`);
 });
 
-filePath = './tryOut/file11.md';
+filePath = '../tryOut/file11.md';
 fs.readFile(filePath, 'utf8', (err, data) => {
   if (err) {
     console.error(err);
@@ -106,7 +106,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     ${testSix}`);
 });
 
-filePath = './tryOut/file11.txt';
+filePath = '../tryOut/file11.txt';
 fs.readFile(filePath, 'utf8', (err, data) => {
   if (err) {
     console.error(err);
@@ -122,7 +122,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     ${testSeven}`);
 });
 
-filePath = './tryOut/try/file22.md';
+filePath = '../tryOut/try/file22.md';
 fs.readFile(filePath, 'utf8', (err, data) => {
   if (err) {
     console.error(err);
@@ -138,7 +138,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     ${testEight}`);
 });
 
-filePath = './tryOut/file11.doc';
+filePath = '../tryOut/file11.doc';
 fs.readFile(filePath, 'utf8', (err, data) => {
   if (err) {
     console.error(err);

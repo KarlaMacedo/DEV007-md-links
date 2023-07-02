@@ -5,5 +5,11 @@
   },
   "parserOptions": {
     "ecmaVersion": 8
+  },
+  "rules": {
+    "import/extensions": [
+      "error",
+      "always"
+    ]
   }
 }

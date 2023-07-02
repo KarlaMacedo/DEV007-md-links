@@ -2,12 +2,12 @@ import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
 
-const mainDirectory = './tryOut';
-const filesArray = [];
+// const mainDirectory = './tryOut';
+// const filesArray = [];
 
-function getFiles(directory, array) {
+export default function getFiles(directory, array) {
   try {
-    const files = fs.readdirSync(directory);
+    const files = fs.readdirSync(directory, 'utf8');
 
     files.forEach((file) => {
       const filePath = path.join(directory, file);
@@ -30,6 +30,7 @@ function getFiles(directory, array) {
 }
 
 // Uso:
-console.log(chalk.bgGreen('TUS ARCHIVOS MD:'));
+/* console.log(chalk.bgGreen('TUS ARCHIVOS MD:'));
 getFiles(mainDirectory, filesArray);
-console.log(chalk.bgRed(filesArray));
+console.log(chalk.bgRed(typeof filesArray));
+console.log(chalk.bgRed(filesArray)); */
