@@ -15,9 +15,9 @@ getFiles(mainDirectory, filesArray);
 console.log(chalk.bgRed(typeof filesArray));
 console.log(chalk.bgRed(filesArray));
 
-const mdlinks = async (files) => {
-  try {
-    await Promise.all(files.map(async (content) => {
+const mdlinks = (files) => {
+  Promise.all(
+    files.map((content) => {
       const markdownContent = fs.readFileSync(content, 'utf-8');
       const html = marked(markdownContent, { headerIds: false, mangle: false });
       const $ = cheerio.load(html);
@@ -28,13 +28,20 @@ const mdlinks = async (files) => {
       });
       console.log(`Enlaces encontrados en: ${content}`);
       console.log(chalk.red(links));
-      await Promise.all(links.map(async (linki) => {
-        console.log(chalk.magenta(linki));
-      }));
-    }));
-  } catch (error) {
-    console.error('Error al obtener los archivos:', error);
-  }
+      return Promise.all(
+        links.map((linki) => new Promise((resolve) => {
+          console.log(chalk.magenta(linki));
+          resolve();
+        })),
+      );
+    }),
+  )
+    .then(() => {
+      console.log('Proceso finalizado');
+    })
+    .catch((error) => {
+      console.error('Error al obtener los archivos:', error);
+    });
 };
 
 mdlinks(filesArray);
