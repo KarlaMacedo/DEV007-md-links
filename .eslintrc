@@ -1,7 +1,9 @@
 {
   "env": {
     "node": true,
-    "jest": true
+    "jest": true,
+    "cheerio": true,
+    "marked": true
   },
   "parserOptions": {
     "ecmaVersion": 8
