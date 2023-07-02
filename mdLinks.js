@@ -17,24 +17,36 @@ console.log(chalk.bgRed(filesArray));
 
 const mdlinks = (files) => {
   Promise.all(
-    files.map((content) => {
-      const markdownContent = fs.readFileSync(content, 'utf-8');
-      const html = marked(markdownContent, { headerIds: false, mangle: false });
-      const $ = cheerio.load(html);
-      const links = [];
-      $('a').each((index, element) => {
-        const link = $(element).attr('href');
-        links.push(link);
+    files.map((content) => new Promise((resolve, reject) => {
+      fs.readFile(content, 'utf-8', (error, markdownContent) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        const html = marked(markdownContent, { headerIds: false, mangle: false });
+        const $ = cheerio.load(html);
+        const links = [];
+        $('a').each((index, element) => {
+          const link = $(element).attr('href');
+          links.push(link);
+        });
+        console.log(`Enlaces encontrados en: ${content}`);
+        console.log(chalk.red(links));
+        Promise.all(
+          links.map((linki) => new Promise((resolved) => {
+            console.log(chalk.magenta(linki));
+            resolved();
+          })),
+        )
+          .then(() => {
+            resolve();
+          })
+          .catch((errors) => {
+            reject(errors);
+          });
       });
-      console.log(`Enlaces encontrados en: ${content}`);
-      console.log(chalk.red(links));
-      return Promise.all(
-        links.map((linki) => new Promise((resolve) => {
-          console.log(chalk.magenta(linki));
-          resolve();
-        })),
-      );
-    }),
+    })),
   )
     .then(() => {
       console.log('Proceso finalizado');
