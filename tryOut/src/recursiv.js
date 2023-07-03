@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
 
-const mainDirectory = './tryOut';
+const mainDirectory = '../tryOut';
 
 // SYNC
 function listFilesRecursiveSync(directory) {
