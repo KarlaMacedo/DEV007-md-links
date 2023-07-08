@@ -4,13 +4,9 @@
 import chalk from 'chalk';
 import fs from 'fs';
 import marked from 'marked';
-// import cheerio from 'cheerio';
 import { JSDOM } from 'jsdom';
 import path from 'path';
 import axios from 'axios';
-
-// ------------ DIRECTORIO Y DONDE SE ALMACENARÁN FILES .md
-const mainDirectory = './tryOut/';
 
 // ---------- FUNCIONES PURAS
 // PATH ABSOLUTA
@@ -23,8 +19,8 @@ export function convertAbsolute(pathUser) {
 
 // ES UN ARCHIVO
 export function isFile(pathUser) {
-  const stats = fs.statSync(pathUser);
-  return stats.isFile();
+  const infoFile = fs.statSync(pathUser);
+  return infoFile.isFile();
 }
 
 // ES UN ARCHIVO .md
@@ -32,15 +28,15 @@ export function isMd(file) {
   return (path.extname(file) === '.md');
 }
 
-// ES UN ARCHIVO .md
+// NO ES UN ARCHIVO .md
 export function isNotMd(file) {
   return (path.extname(file) !== '.md');
 }
 
 // ES UN DIRECTORIO
 export function isDirectory(pathUser) {
-  const stats = fs.statSync(pathUser);
-  return stats.isDirectory();
+  const infoDir = fs.statSync(pathUser);
+  return infoDir.isDirectory();
 }
 
 // ARCHIVOS DENTRO DIRECTORIO
@@ -50,16 +46,16 @@ export function filesDir(directory) {
 }
 
 // UNIR PATHS ARCHIVOS DIRECTORIO
-export function pathAbsolut(directory, pathUser) {
-  const filePath = path.join(directory, pathUser);
-  return filePath;
+export function unionPaths(directory, pathUser) {
+  const filePathComplete = path.join(directory, pathUser);
+  return filePathComplete;
 }
 
 // .md A HTML
 export function convertToHtml(markdownContent) {
   const html = marked(markdownContent, { headerIds: false, mangle: false }); // convierte HTML
   const dom = new JSDOM(html); // creación de instancia DOM del HTML
-  const { document } = dom.window; // se ingresa al DOM
+  const { document } = dom.window; // se ingresa al objeto DOM
   return document;
 }
 
@@ -70,6 +66,12 @@ export function getLinksFalse(dom, file) {
     text: element.textContent.trim(),
     file,
   }));
+  if (linksFalse.length === 0) {
+    console.log('');
+    console.log(chalk.bold('Links encontrados en: '), chalk.underline(file));
+    console.log(chalk.bold.red('Este archivo no tiene links'));
+    console.log('');
+  }
   return linksFalse;
 }
 
@@ -82,102 +84,113 @@ export function getLinksTrue(dom, file) {
     status: 10,
     ok: '',
   }));
+  if (linksTrue.length === 0) {
+    console.log('');
+    console.log(chalk.bold('Links encontrados en: '), chalk.underline(file));
+    console.log(chalk.bold.red('Este archivo no tiene links'));
+    console.log('');
+  }
   return linksTrue;
 }
 
 // HTTP REQUEST
 export function getStatusCode(url) {
   return axios.get(url)
-    .then((response) => response.status)
+    .then((response) => response.status) // status OK
     .catch((error) => {
-      if (error.response) {
+      if (error.response) { // status Fail
         return error.response.status;
       }
-      throw error;
+      throw error; // si no es un error por el status, manda el error
     });
 }
 
 // OBTENER ARCHIVOS RECURSIVAMENTE
-export function getFilesRecursively(directory) {
-  const absolutePath = convertAbsolute(directory);
+export function getFilesRecursively(pathUser) {
+  const absolutePath = convertAbsolute(pathUser);
   const filesArray = [];
 
-  function getFilesRec(dir) {
+  function getFilesRecurs(dir) {
     const files = filesDir(dir);
     files.forEach((file) => {
-      const filePath = pathAbsolut(dir, file);
-      if (isFile(filePath)) {
-        if (isMd(file)) {
-          filesArray.push(filePath);
-        }
+      const filePath = unionPaths(dir, file);
+      if (isFile(filePath) && isMd(file)) {
+        filesArray.push(filePath);
       } else if (isDirectory(filePath)) {
-        getFilesRec(filePath);
+        getFilesRecurs(filePath);
       }
     });
   }
 
-  getFilesRec(absolutePath);
+  getFilesRecurs(absolutePath);
   return filesArray;
 }
 
 // LEER .md Y OBTENER LINKS SEGUN VALID
-export function processMarkdownFile(filePath, options) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filePath, 'utf-8', (error, markdownContent) => {
-      if (error) {
+export function processMarkdownFile(filePath) {
+  return new Promise((resolve, reject) => { // se crea promesa
+    fs.readFile(filePath, 'utf-8', (error, markdownContent) => { // leer archivo
+      if (error) { // en caso de error
         reject(chalk.bgRedBright.bold(error));
         return;
       }
 
       const document = convertToHtml(markdownContent);
 
-      if (options === false) {
-        const linksFalse = getLinksFalse(document, filePath);
-        resolve(linksFalse);
-      } else if (options === true) {
-        const linksTrue = getLinksTrue(document, filePath);
-        resolve(linksTrue);
-      } else {
-        reject(new Error(chalk.bgRedBright.bold('La opción que elegiste no es válida')));
-      }
+      const linksFalse = getLinksFalse(document, filePath);
+
+      resolve(linksFalse);
     });
   });
 }
 
-// LEER .md Y OBTENER LINKS CON SU ESTATUS
+// LEER .md Y OBTENER LINKS CON SU STATUS
 export function processMarkdownFileWithStatus(filePath) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filePath, 'utf-8', (error, markdownContent) => {
-      if (error) {
+  return new Promise((resolve, reject) => { // promesa principal
+    fs.readFile(filePath, 'utf-8', (error, markdownContent) => { // leer archivo
+      if (error) { // si hay error al leer archivo
         reject(chalk.bgRedBright.bold(error));
         return;
       }
 
+      // si se lee bien el archivo...
       const document = convertToHtml(markdownContent);
-      const links = getLinksTrue(document, filePath);
+      const links = getLinksTrue(document, filePath); // array de links
 
-      const promises = links.map((link) => {
-        // Crear una copia del objeto link
-        const updatedLink = { ...link };
+      const promises = links.map((link) => { // declara array de promesas de la obtención de status
+        const objectLink = { ...link };// Crear copia de c/objeto link
 
-        return getStatusCode(link.href)
+        return getStatusCode(link.href) // devuelve las promesas de obtener status
           .then((statusCode) => {
-            updatedLink.status = statusCode;
-            updatedLink.ok = statusCode === 200 ? 'OK' : 'Fail';
-            return updatedLink;
+            objectLink.status = statusCode;
+            // condicionales segun el status del link
+            if (statusCode >= 100 && statusCode < 200) {
+              objectLink.ok = 'Informational';
+            } else if (statusCode >= 200 && statusCode < 300) {
+              objectLink.ok = 'OK ✔';
+            } else if (statusCode >= 300 && statusCode < 400) {
+              objectLink.ok = 'Redirect';
+            } else if (statusCode >= 400 && statusCode < 500) {
+              objectLink.ok = 'Fail ✘';
+            } else if (statusCode >= 500 && statusCode < 600) {
+              objectLink.ok = 'Fail ✘';
+            } else {
+              objectLink.ok = 'Unknown';
+            }
+            return objectLink;
           })
           .catch((error) => {
-            updatedLink.status = 'Error';
-            updatedLink.ok = 'Fail';
-            return updatedLink;
+            objectLink.status = 'Error';
+            objectLink.ok = 'Fail ✘';
+            return objectLink;
           });
       });
 
-      Promise.all(promises)
-        .then((updatedLinks) => {
-          resolve(updatedLinks);
+      Promise.all(promises) // se espera que las promesas de status se resuelvan
+        .then((objectLinks) => {
+          resolve(objectLinks); // resuelve promesa principal
         })
-        .catch((error) => {
+        .catch((error) => { // error de promesa principal
           reject(error);
         });
     });
