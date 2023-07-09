@@ -196,3 +196,16 @@ export function processMarkdownFileWithStatus(filePath) {
     });
   });
 }
+
+// TRUNCAR TEXTO 50 CARACTERES
+export function truncateText(text) {
+  if (text.length <= 50) {
+    return text;
+  }
+  return `${text.slice(0, 50)}...`;
+}
+
+// CONTAR LINKS
+export function countLinks(links) {
+  return links.length;
+}
