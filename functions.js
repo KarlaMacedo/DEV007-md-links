@@ -209,3 +209,29 @@ export function truncateText(text) {
 export function countLinks(links) {
   return links.length;
 }
+
+// CONTAR STATUS LINKS
+export function countBroken(links) {
+  let broken = 0;
+  links.forEach(
+    (link) => {
+      if (link.ok === 'Fail ✘') {
+        broken += 1;
+      }
+    },
+  );
+  return broken;
+}
+
+// CONTAR LINKS UNICOS
+export function countUniques(links) {
+  let unique = 0;
+  links.forEach(
+    (link) => {
+      if (!links.includes(link)) {
+        unique += 1;
+      }
+    },
+  );
+  return unique;
+}
