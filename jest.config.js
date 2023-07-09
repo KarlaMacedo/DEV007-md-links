@@ -1,6 +1,15 @@
 export default {
+  transform: {
+    '^.+\\.m?js$': 'babel-jest',
+  },
+  globals: {
+    NODE_ENV: 'test',
+    testPathIgnorePatterns: ['<rootDir>/node_modules/'],
+    verbose: true,
+  },
   testEnvironment: 'node',
   testMatch: [
-    '**/*.spec.js',
+    '<rootDir>/test/**/*.spec.js',
   ],
+
 };
