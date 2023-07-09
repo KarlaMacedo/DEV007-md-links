@@ -238,8 +238,8 @@ export function countSuccessfull(links) {
 
 // CONTAR LINKS UNICOS
 export function countUniques(links) {
-  const uniqueLinks = new Set(links.map((link) => link.href));
-  return uniqueLinks.size;
+  const uniqueLinks = new Set(links.map((link) => link.href)); // conjunto url unicas
+  return uniqueLinks.size; // tamaño del conjunto
 }
 
 // STATS

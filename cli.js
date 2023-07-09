@@ -19,14 +19,14 @@ try {
 
           console.log(chalk.hex('#FFA500')('Estadística del archivo:'));
           if (stats) {
-            const holas = getStats(links);
-            console.log('Total: ', chalk.blue(holas.Total));
-            console.log('Unique: ', chalk.blue(holas.Unique));
+            const onlyStats = getStats(links);
+            console.log('Total: ', chalk.blue(onlyStats.Total));
+            console.log('Unique: ', chalk.blue(onlyStats.Unique));
           }
           if (stats && validate) {
-            const byes = getStatsValidate(links);
-            console.log('Broken: ', chalk.red(byes.Broken));
-            console.log('Successfull: ', chalk.green(byes.Successfull));
+            const statsValidate = getStatsValidate(links);
+            console.log('Broken: ', chalk.red(statsValidate.Broken));
+            console.log('Successfull: ', chalk.green(statsValidate.Successfull));
           }
           console.log('');
 
