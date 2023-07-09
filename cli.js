@@ -1,7 +1,14 @@
 import argv from 'node:process';
+import chalk from 'chalk';
 
-if (argv.argv[2] === 'jajajajaja') {
-  console.log('se esta riendo');
-} else {
-  console.log('ta triste');
+import mdLinks from './mdlinks.js';
+
+// ------------ VARIABLES
+const path = argv.argv[2];
+const options = true;
+
+try {
+  mdLinks(path, options);
+} catch (error) {
+  console.error(chalk.bgRedBright.bold(error));
 }
