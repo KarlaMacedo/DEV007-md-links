@@ -1,11 +1,11 @@
 import chalk from 'chalk';
 
-import { getFilesRecursively, processMarkdownFile, processMarkdownFileWithStatus } from './functions.js';
-// ------------ DIRECTORIO Y DONDE SE ALMACENARÁN FILES .md
-const mainDirectory = './tyOut';
+import {
+  getFilesRecursively, processMarkdownFile, processMarkdownFileWithStatus, truncateText,
+} from './functions.js';
 
 // FUNCIÓN PRINCIPAL DE ENLACE
-function mdlinks(path, options) {
+export default function mdLinks(path, options) {
   console.log(chalk.bold.italic('La ruta que proporcionaste fue: ') + chalk.bgBlue(path));
   const filesArray = getFilesRecursively(path);
 
@@ -32,7 +32,7 @@ function mdlinks(path, options) {
 
           links.forEach((link) => {
             console.log('href: ', chalk.underline.blue(link.href));
-            console.log('text: ', chalk.blue(link.text));
+            console.log('text: ', chalk.blue(truncateText(link.text)));
             if (link.ok === 'OK ✔') {
               console.log('status: ', chalk.green(link.status));
               console.log('ok: ', chalk.green(link.ok));
@@ -50,10 +50,4 @@ function mdlinks(path, options) {
     .catch((error) => {
       console.error(chalk.bgRedBright.bold(error));
     });
-}
-
-try {
-  mdlinks(mainDirectory, true);
-} catch (error) {
-  console.error(chalk.bgRedBright.bold(error));
 }
