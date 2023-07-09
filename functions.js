@@ -210,7 +210,7 @@ export function countLinks(links) {
   return links.length;
 }
 
-// CONTAR STATUS LINKS
+// CONTAR LINKS ROTOS
 export function countBroken(links) {
   let broken = 0;
   links.forEach(
@@ -223,15 +223,41 @@ export function countBroken(links) {
   return broken;
 }
 
-// CONTAR LINKS UNICOS
-export function countUniques(links) {
-  let unique = 0;
+// CONTAR LINKS EXITOSOS
+export function countSuccessfull(links) {
+  let successfull = 0;
   links.forEach(
     (link) => {
-      if (!links.includes(link)) {
-        unique += 1;
+      if (link.ok === 'OK ✔') {
+        successfull += 1;
       }
     },
   );
-  return unique;
+  return successfull;
+}
+
+// CONTAR LINKS UNICOS
+export function countUniques(links) {
+  const uniqueLinks = new Set(links.map((link) => link.href));
+  return uniqueLinks.size;
+}
+
+// STATS
+export function getStats(links) {
+  const statsTrue = {
+    Total: countLinks(links),
+    Unique: countUniques(links),
+  };
+  return statsTrue;
+}
+
+// STATS Y VALIDATE
+export function getStatsValidate(links) {
+  const statsValidateTrue = {
+    Total: countLinks(links),
+    Unique: countUniques(links),
+    Broken: countBroken(links),
+    Successfull: countSuccessfull(links),
+  };
+  return statsValidateTrue;
 }
