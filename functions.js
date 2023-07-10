@@ -122,7 +122,13 @@ export function getFilesRecursively(pathUser) {
     });
   }
 
-  getFilesRecurs(absolutePath);
+  if (isFile(absolutePath) && isMd(absolutePath)) {
+    filesArray.push(absolutePath);
+  }
+
+  if (isDirectory(absolutePath)) {
+    getFilesRecurs(absolutePath);
+  }
   return filesArray;
 }
 
@@ -195,4 +201,69 @@ export function processMarkdownFileWithStatus(filePath) {
         });
     });
   });
+}
+
+// TRUNCAR TEXTO 50 CARACTERES
+export function truncateText(text) {
+  if (text.length <= 50) {
+    return text;
+  }
+  return `${text.slice(0, 50)}...`;
+}
+
+// CONTAR LINKS
+export function countLinks(links) {
+  return links.length;
+}
+
+// CONTAR LINKS ROTOS
+export function countBroken(links) {
+  let broken = 0;
+  links.forEach(
+    (link) => {
+      if (link.ok === 'Fail ✘') {
+        broken += 1;
+      }
+    },
+  );
+  return broken;
+}
+
+// CONTAR LINKS EXITOSOS
+export function countSuccessfull(links) {
+  let successfull = 0;
+  links.forEach(
+    (link) => {
+      if (link.ok === 'OK ✔') {
+        successfull += 1;
+      }
+    },
+  );
+  return successfull;
+}
+
+// CONTAR LINKS UNICOS
+export function countUniques(links) {
+  const uniqueLinks = new Set(links.map((link) => link.href)); // conjunto url unicas
+  return uniqueLinks.size; // tamaño del conjunto
+}
+
+// STATS
+export function getStats(links) {
+  const statsTrue = {
+    Total: countLinks(links),
+    Unique: countUniques(links),
+  };
+  return statsTrue;
+}
+
+// STATS Y VALIDATE
+export function getStatsValidate(links) {
+  const statsValidateTrue = {
+    Total: countLinks(links),
+    Unique: countUniques(links),
+    Broken: countBroken(links),
+    Successfull: countSuccessfull(links),
+  };
+  return statsValidateTrue;
 }

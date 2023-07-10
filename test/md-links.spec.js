@@ -1,8 +1,8 @@
-import hola from '../src/index';
+import { convertAbsolute } from '../functions.js';
 
-describe('hola', () => {
-  test('should be a function', () => {
-    expect(typeof hola).toBe('function');
+describe('convertAbsolute', () => {
+  test('should be a function', async () => {
+    expect(typeof convertAbsolute).toBe('function');
   });
 });
 
