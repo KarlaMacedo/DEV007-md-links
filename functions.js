@@ -122,7 +122,13 @@ export function getFilesRecursively(pathUser) {
     });
   }
 
-  getFilesRecurs(absolutePath);
+  if (isFile(absolutePath) && isMd(absolutePath)) {
+    filesArray.push(absolutePath);
+  }
+
+  if (isDirectory(absolutePath)) {
+    getFilesRecurs(absolutePath);
+  }
   return filesArray;
 }
 

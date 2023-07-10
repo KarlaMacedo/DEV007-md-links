@@ -17,8 +17,8 @@ try {
           console.log('');
           console.log(chalk.bold('Links encontrados en: '), chalk.underline(links[0].file));
 
-          console.log(chalk.hex('#FFA500')('Estadística del archivo:'));
           if (stats) {
+            console.log(chalk.hex('#FFA500')('Estadística del archivo:'));
             const onlyStats = getStats(links);
             console.log('Total: ', chalk.blue(onlyStats.Total));
             console.log('Unique: ', chalk.blue(onlyStats.Unique));
