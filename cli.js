@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import chalk from 'chalk';
 
 import mdLinks from './mdlinks.js';
@@ -15,10 +17,10 @@ try {
       results.forEach((links) => { // para cada link
         if (links && links.length > 0 && links[0].file) {
           console.log('');
-          console.log(chalk.bold('Archivo: '), chalk.underline(links[0].file));
+          console.log(chalk.bold('File: '), chalk.underline(links[0].file));
 
           if (stats) {
-            console.log(chalk.hex('#FFA500')('Estadística del archivo:'));
+            console.log(chalk.hex('#FFA500')('File statistics:'));
             const onlyStats = getStats(links);
             console.log('Total: ', chalk.blue(onlyStats.Total));
             console.log('Unique: ', chalk.blue(onlyStats.Unique));
@@ -29,7 +31,7 @@ try {
             console.log('Successfull: ', chalk.green(statsValidate.Successfull));
           }
           console.log('');
-          console.log(chalk.hex('#FFA500')('Links del archivo:'));
+          console.log(chalk.hex('#FFA500')('File links:'));
 
           links.forEach((link) => {
             console.log('href: ', chalk.underline.blue(link.href));
@@ -47,7 +49,7 @@ try {
         }
       });
 
-      console.log(chalk.bold.italic('Proceso finalizado'));
+      console.log(chalk.bold.italic('Ended process'));
     })
     .catch((error) => {
       console.error(chalk.bgRedBright.bold(error));
