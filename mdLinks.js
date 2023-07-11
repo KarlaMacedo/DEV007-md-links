@@ -6,12 +6,12 @@ import {
 
 // FUNCIÓN PRINCIPAL DE ENLACE
 export default function mdLinks(path, options) {
-  console.log(chalk.bold.italic('La ruta que proporcionaste fue: ') + chalk.bgBlue(path));
+  console.log(chalk.bold.italic('The path you provided was: ') + chalk.bgBlue(path));
 
   const filesArray = getFilesRecursively(path);
 
   if (filesArray.length === 0) {
-    return Promise.reject(new Error(chalk.bgRedBright.bold(' No se encontró ningún archivo .md ')));
+    return Promise.reject(new Error(chalk.bgRedBright.bold(' No .md file found ')));
   }
 
   const promises = filesArray.map((file) => { // array de promesas
@@ -20,7 +20,7 @@ export default function mdLinks(path, options) {
     } if (options === true) {
       return processMarkdownFileWithStatus(file);
     }
-    return Promise.reject(new Error(chalk.bgRedBright.bold(' La opción que elegiste no es válida ')));
+    return Promise.reject(new Error(chalk.bgRedBright.bold(' The option you chose is not valid ')));
   });
   return Promise.all(promises);
 }

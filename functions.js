@@ -68,8 +68,8 @@ export function getLinksFalse(dom, file) {
   }));
   if (linksFalse.length === 0) {
     console.log('');
-    console.log(chalk.bold('Links encontrados en: '), chalk.underline(file));
-    console.log(chalk.bold.red('Este archivo no tiene links'));
+    console.log(chalk.bold('Links found in: '), chalk.underline(file));
+    console.log(chalk.bold.red('This file has no links'));
     console.log('');
   }
   return linksFalse;
@@ -86,8 +86,8 @@ export function getLinksTrue(dom, file) {
   }));
   if (linksTrue.length === 0) {
     console.log('');
-    console.log(chalk.bold('Links encontrados en: '), chalk.underline(file));
-    console.log(chalk.bold.red('Este archivo no tiene links'));
+    console.log(chalk.bold('Links found in: '), chalk.underline(file));
+    console.log(chalk.bold.red('This file has no links'));
     console.log('');
   }
   return linksTrue;
@@ -142,8 +142,6 @@ export function processMarkdownFile(filePath) {
       }
 
       const document = convertToHtml(markdownContent);
-
-      console.log(chalk.yellow.underline('document'));
 
       const linksFalse = getLinksFalse(document, filePath);
 
