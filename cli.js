@@ -15,7 +15,7 @@ try {
       results.forEach((links) => { // para cada link
         if (links && links.length > 0 && links[0].file) {
           console.log('');
-          console.log(chalk.bold('Links encontrados en: '), chalk.underline(links[0].file));
+          console.log(chalk.bold('Archivo: '), chalk.underline(links[0].file));
 
           if (stats) {
             console.log(chalk.hex('#FFA500')('Estadística del archivo:'));
@@ -29,6 +29,7 @@ try {
             console.log('Successfull: ', chalk.green(statsValidate.Successfull));
           }
           console.log('');
+          console.log(chalk.hex('#FFA500')('Links del archivo:'));
 
           links.forEach((link) => {
             console.log('href: ', chalk.underline.blue(link.href));
