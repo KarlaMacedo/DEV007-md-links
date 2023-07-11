@@ -1,160 +1,192 @@
 # Markdown Links
 
-## Índice
+## Index
 
-* [1. Preámbulo](#1-preámbulo)
-* [2. Resumen del proyecto](#2-resumen-del-proyecto)
-* [3. Consideraciones generales](#3-consideraciones-generales)
-* [4. Instrucciones de uso](#4-instrucciones-de-uso)
-* [5. Planeación del proyecto](#5-planeación-del-proyecto)
-* [6. Objetivos de aprendizaje](#6-objetivos-de-aprendizaje)
+* [1. Introduction](#1-introduction)
+* [2. Project Summary](#2-project-summary)
+* [3. General Considerations](#3-general-considerations)
+* [4. Usage Instructions](#4-usage-instructions)
+* [5. Project Planning](#5-project-planning)
+* [6. Learning Objectives](#6-learning-objectives)
 
 
 ***
 
-## 1. Preámbulo
+## 1. Introduction
 
-[Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
-ligero muy popular entre developers. Es usado en muchísimas plataformas que
-manejan texto plano (GitHub, foros, blogs, ...) y es muy común
-encontrar varios archivos en ese formato en cualquier tipo de repositorio
-(empezando por el tradicional `README.md`).
+[Markdown](https://es.wikipedia.org/wiki/Markdown)  is a lightweight markup
+ language widely used among developers. It is used in many platforms that 
+ handle plain text (such as GitHub, forums, blogs, etc.), and it is common
+ to find multiple files in that format in any type of repository (starting
+ with the traditional `README.md` file).
 
-Estos archivos `Markdown` normalmente contienen _links_ (vínculos/ligas) que
-muchas veces están rotos o ya no son válidos y eso perjudica mucho el valor de
-la información que se quiere compartir.
+These `Markdown` files often contain _links_  that are sometimes broken or
+ no longer valid, which greatly diminishes the value of the shared information.
 
-Dentro de una comunidad de código abierto, nos han propuesto crear una
-herramienta usando [Node.js](https://nodejs.org/), que lea y analice archivos
-en formato `Markdown`, para verificar los links que contengan y reportar
-algunas estadísticas.
+Within an open-source community, we have been tasked with creating a tool using
+ [Node.js](https://nodejs.org/) that reads and analyzes `Markdown` files, verifies
+ the links they contain, and reports some statistics.
 
-## 2. Resumen del proyecto
+## 2. Project Summary
 
-Este proyecto es una herramienta de línea de comando (CLI) / librería en 
-JavaScript que se ejecuta usando Node.js.
+This project is a command-line tool (CLI) / JavaScript library that is executed
+ using Node.js.
 
-[Node.js](https://nodejs.org/es/) es un entorno de ejecución para JavaScript
-construido con el [motor de JavaScript V8 de Chrome](https://developers.google.com/v8/).
-Esto permite ejecutar JavaScript en el entorno del sistema operativo,
-ya sea en máquina o un servidor, lo cual nos abre las puertas para poder
-interactuar con el sistema en sí, archivos, redes, etc.
+[Node.js](https://nodejs.org/es/) is a runtime environment for JavaScript built
+ on the [Chrome V8 JavaScript engine](https://developers.google.com/v8/).
+ It allows running JavaScript in the operating system environment, either on a
+ machine or a server, opening the doors to interact with the system itself, files,
+ networks, etc.
 
-## 3. Consideraciones generales
+## 3. General Considerations
 
-* Este proyecto se resolvió de manera individual.
+* This project was completed individually.
 
-* El rango de tiempo estimado para completar el proyecto era de 4 a 5 Sprints y se completó en 2.5 sprints.
+* The estimated time range to complete the project was 4 to 5 Sprints, and it was
+ completed in 2.5 Sprints.
 
-* Se comprobó la compatibilidad en los entornos de ejecución **Linux, Mac y Windows**.
+* Compatibility was verified in the **Linux, Mac and Windows** execution environments.
 
-* La **librería** y el **script ejecutable** (herramienta de línea de comando -
-  CLI) estan implementados en JavaScript para ser ejecutados con
-  Node.js. **Se usaron librerías externas como path, FS, Axios, JSDOM, chalk y marked**.
+* The **library**  and the **executable script** (command-line tool - CLI) are 
+implemented in JavaScript to be run with Node.js. **External libraries like path, FS,**
+**Axios, JSDOM, chalk, and marked were used**.
 
-* El módulo **es instalable** via `npm install karlamac-md-links`. 
+* The module is **installable** via `npm install karlamac-md-links`. 
 
-* Para este proyecto **no se permitió** utilizar `async/await`.
+* For this project, the use of `async/await` was **not allowed**.
 
-* **Utiliza** la versión asíncrona para leer archivos.
+* The asynchronous version was used to read files.
 
-* **Utiliza** ES Modules `(import/export)` con ayuda de **babel**.
+* ES Modules `(import/export)` were used with the help of **babel**.
 
-* Para disminuir la complejidad del algoritmo recursivo, se utilizó la
-versión síncrona de la función para leer directorios, `readdirSync`.
+* To **reduce the complexity** of the recursive algorithm, the synchronous version of
+ the function to read directories, `readdirSync`, was used.
 
-## 4. Instrucciones de uso
+## 4. Usage Instructions
 
-### Instalación
+### Installation
 
-Para instalar la librería se debe ejecutar el siguiente comando en la terminal:
+To install the library, run the following command in the terminal:
 
 ```
 npm install karlamac-md-links
 ```
 
-### Uso por la terminal
+### Usage in the Terminal
 
-Para utilizar la librería mediante la terminal se debe utilizar el siguiente comando:
+To use the library through the terminal, use the following command:
 
 ```
 npx karlamac-md-links <path-to-file> [options]
 ```
 
-Se debe reemplazar `<path-to-file>` por la ruta (absoluta o relativa) del archivo o directorio que se desea procesar. Y se debe reemplazar `[options]` por la acción que se desea hacer:
+Replace `<path-to-file>` with the path (absolute or relative) of the file or directory 
+you want to process. Replace `[options]` with the action you want to perform:
 
-#### Opciones
+#### Options
 
-Si no se ingresa nada (`npx karlamac-md-links <path-to-file>`), se retornarán los archivos .md que se encuentren y los links que se encuentren dentro de cada archivo. En caso de que no se encuentren links o archivos, se retornará un aviso.
+If no options are provided (`npx karlamac-md-links <path-to-file>`),  it will return the
+ .md files found and the links contained within each file. If no links or files are found,
+ a notification will be displayed.
 
-![planning](./nothing.png)
+![response](./nothing.png)
 
-Si se ingresa sólo la opción de `--valid` (`npx karlamac-md-links <path-to-file> --valid`), se retornarán los archivos .md que se encuentren, los links que se encuentren dentro de cada archivo y éstos serán validados mediante una HTTP request, por lo que también se retornará su código de satatus y en caso de que sea exitoso se retornará un aviso "OK ✔", de lo contrario será un aviso "Fail ✘". En caso de que no se encuentren links o archivos, se retornará un aviso.
+If only the `--valid` option is provided (`npx karlamac-md-links <path-to-file> --valid`),
+ it will return the .md files found, the links contained within each file, and validate 
+ them through an HTTP request. It will also return their status codes, displaying an "OK ✔"
+ notification for successful requests and a "Fail ✘" notification otherwise. If no links or
+ files are found, a notification will be displayed.
 
-![planning](./valid.png)
+![response](./valid.png)
 
-Si se ingresa sólo la opción de `--stats` (`npx karlamac-md-links <path-to-file> --stats`), se retornarán los archivos .md que se encuentren y los links que se encuentren dentro de cada archivo. En caso de que no se encuentren links o archivos, se retornará un aviso. Adicionalmente, se obtendrá una sección de estadísticas que mostrará cuántos links en total se encontraron en la búsqueda y cuántos de éstos son únicos.
+If only the `--stats` option is provided (`npx karlamac-md-links <path-to-file> --stats`),
+ it will return the .md files found and the links contained within each file. If no links
+ or files are found, a notification will be displayed. Additionally, it will display a 
+ statistics section showing the total number of links found in the search and how many of
+ them are unique.
 
-![planning](./stats.png)
+![response](./stats.png)
 
-Si se ingresan las opciones `--valid` y `--stats` (`npx karlamac-md-links <path-to-file> --valid --stats`), se retornarán los archivos .md que se encuentren, los links que se encuentren dentro de cada archivo y éstos serán validados mediante una HTTP request, por lo que también se retornará su código de satatus y en caso de que sea exitoso se retornará un aviso "OK ✔", de lo contrario será un aviso "Fail ✘". En caso de que no se encuentren links o archivos, se retornará un aviso. Adicionalmente, se obtendrá una sección de estadísticas que mostrará cuántos links en total se encontraron en la búsqueda, cuántos de éstos son únicos, cuántos fueron exitosos en la solicitud HTTP y cuánto no lo fueron.
+If the `--valid` and `--stats` options are provided (`npx karlamac-md-links <path-to-file> --valid --stats`),
+ it will return the .md files found, the links contained within each file, validate them 
+ through an HTTP request, and display their status codes with an "OK ✔" notification for
+ successful requests and a "Fail ✘" notification otherwise. If no links or files are found,
+ a notification will be displayed. Additionally, it will display a statistics section showing
+ the total number of links found in the search, how many of them are unique, how many were
+ successful in the HTTP request, and how many were not.
 
-![planning](./validstats.png)
+![response](./validstats.png)
 
-### Uso como API
+### Usage as an API
 
-Para su utilización mediante una API (Application Programming Interface) se debe:
+To use the library as an API (Application Programming Interface), follow these steps:
 
-- Ingresar al [repositorio de GitHub](https://github.com/KarlaMacedo/DEV007-md-links) y hacer un fork. 
+- Fork the [GitHub repository](https://github.com/KarlaMacedo/DEV007-md-links).
 
-- Abrir la su terminal e ingresar a la ubicación donde desea guardar el proyecto con la ayuda del comando `cd`. 
+- Open your terminal and navigate to the location where you want to save the project using
+ the `cd` command. 
 
-- Ingresar el comando:
+- Run the following command:
 ```
 git clone https://github.com/KarlaMacedo/DEV007-md-links.git
 ```
 
-- Abrir la carpeta dentro del editor de código de tu preferencia.
+- Open the project folder in your preferred code editor.
 
-- Abrir la terminal y ejecutar el proyecto mediante los siguientes comandos, según la acción que se desea realizar:
+- Open the terminal and execute the project using the following commands, depending on the
+ desired action:
 
 #### Opciones
 
-Si no se ingresa nada (`node cli.js <path-to-file>`), se retornarán los archivos .md que se encuentren y los links que se encuentren dentro de cada archivo. En caso de que no se encuentren links o archivos, se retornará un aviso.
+If no options are provided (`node cli.js <path-to-file>`),  it will return the .md files found
+ and the links contained within each file. If no links or files are found, a notification will
+ be displayed.
 
-![planning](./nothing.png)
+![response](./nothing.png)
 
-Si se ingresa sólo la opción de `--valid` (`node cli.js <path-to-file> --valid`), se retornarán los archivos .md que se encuentren, los links que se encuentren dentro de cada archivo y éstos serán validados mediante una HTTP request, por lo que también se retornará su código de satatus y en caso de que sea exitoso se retornará un aviso "OK ✔", de lo contrario será un aviso "Fail ✘". En caso de que no se encuentren links o archivos, se retornará un aviso.
+If only the `--valid` option is provided (`node cli.js <path-to-file> --valid`), it will return
+ the .md files found, the links contained within each file, and validate them through an HTTP 
+ request. It will also return their status codes, displaying an "OK ✔" notification for successful
+ requests and a "Fail ✘" notification otherwise. If no links or files are found, a notification 
+ will be displayed.
 
-![planning](./valid.png)
+![response](./valid.png)
 
-Si se ingresa sólo la opción de `--stats` (`node cli.js <path-to-file> --stats`), se retornarán los archivos .md que se encuentren y los links que se encuentren dentro de cada archivo. En caso de que no se encuentren links o archivos, se retornará un aviso. Adicionalmente, se obtendrá una sección de estadísticas que mostrará cuántos links en total se encontraron en la búsqueda y cuántos de éstos son únicos.
+If only the `--stats` option is provided (`node cli.js <path-to-file> --stats`), it will return the
+ .md files found and the links contained within each file. If no links or files are found, a 
+ notification will be displayed. Additionally, it will display a statistics section showing the total
+ number of links found in the search and how many of them are unique.
 
-![planning](./stats.png)
+![response](./stats.png)
 
-Si se ingresan las opciones `--valid` y `--stats` (`node cli.js <path-to-file> --valid --stats`), se retornarán los archivos .md que se encuentren, los links que se encuentren dentro de cada archivo y éstos serán validados mediante una HTTP request, por lo que también se retornará su código de satatus y en caso de que sea exitoso se retornará un aviso "OK ✔", de lo contrario será un aviso "Fail ✘". En caso de que no se encuentren links o archivos, se retornará un aviso. Adicionalmente, se obtendrá una sección de estadísticas que mostrará cuántos links en total se encontraron en la búsqueda, cuántos de éstos son únicos, cuántos fueron exitosos en la solicitud HTTP y cuánto no lo fueron.
+If the `--valid` and `--stats` options are provided (`node cli.js <path-to-file> --valid --stats`), 
+it will return the .md files found, the links contained within each file, validate them through an HTTP
+ request, and display their status codes with an "OK ✔" notification for successful requests and a 
+ "Fail ✘" notification otherwise. If no links or files are found, a notification will be displayed.
+ Additionally, it will display a statistics section showing the total number of links found in the search,
+ how many of them are unique, how many had successful HTTP requests, and how many had failed requests.
 
-![planning](./validstats.png)
+![response](./validstats.png)
 
 
-## 5. Planeación del proyecto
+## 5. Project Planning
 
-Este proyecto se planeó con la utilización de [GitHub Projects](https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects), creando issues, labels y milestones.
+This project was planned using [GitHub Projects](https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects), creating issues, labels, and milestones.
 
 ![planning](./plan.png)
 
-También se realizó previamente un diagrama de flujo como guía para el desarrollo de la lógica del proceso que implicaría el proyecto.
+A flowchart was also previously created as a guide for the development of the logic of the project.
 
 ![diagrama](./diagrama.png)
 
 
-## 6. Objetivos de aprendizaje
+## 6. Learning Objectives
 
 ### JavaScript
 
-- [✓] **Diferenciar entre tipos de datos primitivos y no primitivos**
+- [✓] **Distinguish between primitive and non-primitive data types**
 
-- [✓] **Arrays (arreglos)**
+- [✓] **Arrays**
 
   <details><summary>Links</summary><p>
 
@@ -167,14 +199,14 @@ También se realizó previamente un diagrama de flujo como guía para el desarro
   * [Array.prototype.reduce() - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
 </p></details>
 
-- [✓] **Objetos (key, value)**
+- [✓] **Objects (key, value)**
 
   <details><summary>Links</summary><p>
 
   * [Objetos en JavaScript](https://curriculum.laboratoria.la/es/topics/javascript/05-objects/01-objects)
 </p></details>
 
-- [✓] **Uso de condicionales (if-else, switch, operador ternario, lógica booleana)**
+- [✓] **Use of conditionals (if-else, switch, ternary operator, boolean logic)**
 
   <details><summary>Links</summary><p>
 
@@ -182,7 +214,7 @@ También se realizó previamente un diagrama de flujo como guía para el desarro
   * [Tomando decisiones en tu código — condicionales - MDN](https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/conditionals)
 </p></details>
 
-- [✓] **Funciones (params, args, return)**
+- [✓] **Functions (params, args, return)**
 
   <details><summary>Links</summary><p>
 
@@ -192,7 +224,7 @@ También se realizó previamente un diagrama de flujo como guía para el desarro
   * [Funciones — bloques de código reutilizables - MDN](https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions)
 </p></details>
 
-- [✓] **Recursión o recursividad**
+- [✓] **Recursion**
 
   <details><summary>Links</summary><p>
 
@@ -200,14 +232,14 @@ También se realizó previamente un diagrama de flujo como guía para el desarro
   * [Recursión o Recursividad - Laboratoria Developers en Medium](https://medium.com/laboratoria-developers/recursi%C3%B3n-o-recursividad-ec8f1a359727)
 </p></details>
 
-- [✓] **Módulos de CommonJS**
+- [✓] **CommonJS Modules**
 
   <details><summary>Links</summary><p>
 
   * [Modules: CommonJS modules - Node.js Docs](https://nodejs.org/docs/latest/api/modules.html)
 </p></details>
 
-- [✓] **Diferenciar entre expresiones (expressions) y sentencias (statements)**
+- [✓] **Distinguish between expressions and statements**
 
 - [✓] **Callbacks**
 
@@ -216,7 +248,7 @@ También se realizó previamente un diagrama de flujo como guía para el desarro
   * [Función Callback - MDN](https://developer.mozilla.org/es/docs/Glossary/Callback_function)
 </p></details>
 
-- [✓] **Promesas**
+- [✓] **Promises**
 
   <details><summary>Links</summary><p>
 
@@ -224,50 +256,50 @@ También se realizó previamente un diagrama de flujo como guía para el desarro
   * [How to Write a JavaScript Promise - freecodecamp (en inglés)](https://www.freecodecamp.org/news/how-to-write-a-javascript-promise-4ed8d44292b8/)
 </p></details>
 
-- [✓] **Pruebas unitarias (unit tests)**
+- [✓] **Unit Testing**
 
   <details><summary>Links</summary><p>
 
   * [Empezando con Jest - Documentación oficial](https://jestjs.io/docs/es-ES/getting-started)
 </p></details>
 
-- [✓] **Pruebas asíncronas**
+- [✓] **Asynchronous Testing**
 
   <details><summary>Links</summary><p>
 
   * [Tests de código asincrónico con Jest - Documentación oficial](https://jestjs.io/docs/es-ES/asynchronous)
 </p></details>
 
-- [ ] **Uso de mocks y espías**
+- [ ] **Use of Mocks and Spies**
 
   <details><summary>Links</summary><p>
 
   * [Manual Mocks con Jest - Documentación oficial](https://jestjs.io/docs/es-ES/manual-mocks)
 </p></details>
 
-- [ ] **Pruebas de compatibilidad en múltiples entornos de ejecución**
+- [ ] **Compatibility Testing in Multiple Execution Environments**
 
-- [✓] **Uso de linter (ESLINT)**
+- [✓] **Use of linter (ESLint)**
 
-- [✓] **Uso de identificadores descriptivos (Nomenclatura y Semántica)**
+- [✓] **Use of descriptive identifiers (Naming and Semantics)**
 
 ### Node.js
 
-- [✓] **Instalar y usar módulos con npm**
+- [✓] **Install and Use Modules with npm**
 
   <details><summary>Links</summary><p>
 
   * [Sitio oficial de npm (en inglés)](https://www.npmjs.com/)
 </p></details>
 
-- [✓] **Configuración de package.json**
+- [✓] **Package.json Configuration**
 
   <details><summary>Links</summary><p>
 
   * [package.json - Documentación oficial (en inglés)](https://docs.npmjs.com/files/package.json)
 </p></details>
 
-- [✓] **Configuración de npm-scripts**
+- [✓] **npm-scripts Configuration**
 
   <details><summary>Links</summary><p>
 
@@ -289,23 +321,23 @@ También se realizó previamente un diagrama de flujo como guía para el desarro
   * [Path - Documentación oficial (en inglés)](https://nodejs.org/api/path.html)
 </p></details>
 
-### Control de Versiones (Git y GitHub)
+### Version Control (Git y GitHub)
 
-- [✓] **Git: Instalación y configuración**
+- [✓] **Git: Installation and Configuration**
 
-- [✓] **Git: Control de versiones con git (init, clone, add, commit, status, push, pull, remote)**
+- [✓] **Git: Version Control with Git (init, clone, add, commit, status, push, pull, remote)**
 
-- [✓] **Git: Integración de cambios entre ramas (branch, checkout, fetch, merge, reset, rebase, tag)**
+- [✓] **Git: Integration of Changes Between Branches (branch, checkout, fetch, merge, reset, rebase, tag)**
 
-- [✓] **GitHub: Creación de cuenta y repos, configuración de llaves SSH**
+- [✓] **GitHub: Account Creation and Repositories, SSH Key Configuration**
 
-- [✓] **GitHub: Colaboración en Github (branches | forks | pull requests | code review | tags)**
+- [✓] **GitHub: Collaboration on Github (branches | forks | pull requests | code review | tags)**
 
-- [✓] **GitHub: Organización en Github (projects | issues | labels | milestones | releases)**
+- [✓] **GitHub: Organization on Github (projects | issues | labels | milestones | releases)**
 
 ### HTTP
 
-- [✓] **Consulta o petición (request) y respuesta (response).**
+- [✓] **Request and Response**
 
   <details><summary>Links</summary><p>
 
@@ -313,7 +345,7 @@ También se realizó previamente un diagrama de flujo como guía para el desarro
   * [Mensajes HTTP - MDN](https://developer.mozilla.org/es/docs/Web/HTTP/Messages)
 </p></details>
 
-- [✓] **Códigos de status de HTTP**
+- [✓] **HTTP Status Codes**
 
   <details><summary>Links</summary><p>
 
