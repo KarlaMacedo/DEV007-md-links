@@ -1,7 +1,12 @@
 {
-  "name": "md-links",
+  "name": "karlamac-md-links",
   "version": "0.1.0",
   "type": "module",
+  "bin": {
+    "md-links": "./cli.js"
+  },
+  "license": "ISC",
+  "keywords": [],
   "testEnvironment": "node",
   "engines": {
     "node": ">=16.x"
@@ -10,6 +15,16 @@
     "createdAt": "2023-06-20T14:05:58.211Z",
     "version": "6.3.0",
     "commit": "e129ade681adff8cbb19f82e63f688fef2f08f32"
+  },
+  "description": "Library to search for links, verify their validity and obtain statistics of .md files",
+  "author": {
+    "name": "Karla Paola Macedo",
+    "email": "karlapaolamacedo@gmail.com"
+  },
+  "main": "cli.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KarlaMacedo/DEV007-md-links"
   },
   "scripts": {
     "test": "jest --verbose --coverage",
@@ -33,6 +48,7 @@
     "cheerio": "^1.0.0-rc.12",
     "jest": "^29.5.0",
     "jsdom": "^22.1.0",
+    "karlamac-md-links": "^0.1.0",
     "markdown-it": "^13.0.1",
     "marked": "^0.7.0"
   }
