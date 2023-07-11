@@ -132,7 +132,7 @@ export function getFilesRecursively(pathUser) {
   return filesArray;
 }
 
-// LEER .md Y OBTENER LINKS SEGUN VALID
+// LEER .md Y OBTENER LINKS
 export function processMarkdownFile(filePath) {
   return new Promise((resolve, reject) => { // se crea promesa
     fs.readFile(filePath, 'utf-8', (error, markdownContent) => { // leer archivo
@@ -142,6 +142,8 @@ export function processMarkdownFile(filePath) {
       }
 
       const document = convertToHtml(markdownContent);
+
+      console.log(chalk.yellow.underline('document'));
 
       const linksFalse = getLinksFalse(document, filePath);
 
