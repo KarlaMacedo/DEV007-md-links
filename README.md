@@ -51,7 +51,7 @@ This project is a command-line tool (CLI) / JavaScript library that is executed
 implemented in JavaScript to be run with Node.js. **External libraries like path, FS,**
 **Axios, JSDOM, chalk, and marked were used**.
 
-* The module is **installable** via `npm install karlamac-md-links`. 
+* The module is **installable** via `npm install karlamacedo-md-links`. 
 
 * For this project, the use of `async/await` was **not allowed**.
 
@@ -69,7 +69,7 @@ implemented in JavaScript to be run with Node.js. **External libraries like path
 To install the library, run the following command in the terminal:
 
 ```
-npm install karlamac-md-links
+npm install karlamacedo-md-links
 ```
 
 ### Usage in the Terminal
@@ -77,7 +77,7 @@ npm install karlamac-md-links
 To use the library through the terminal, use the following command:
 
 ```
-npx karlamac-md-links <path-to-file> [options]
+npx karlamacedo-md-links <path-to-file> [options]
 ```
 
 Replace `<path-to-file>` with the path (absolute or relative) of the file or directory 
@@ -85,13 +85,13 @@ you want to process. Replace `[options]` with the action you want to perform:
 
 #### Options
 
-If no options are provided (`npx karlamac-md-links <path-to-file>`),  it will return the
+If no options are provided (`npx karlamacedo-md-links <path-to-file>`),  it will return the
  .md files found and the links contained within each file. If no links or files are found,
  a notification will be displayed.
 
 ![response](./nothing.png)
 
-If only the `--valid` option is provided (`npx karlamac-md-links <path-to-file> --valid`),
+If only the `--valid` option is provided (`npx karlamacedo-md-links <path-to-file> --valid`),
  it will return the .md files found, the links contained within each file, and validate 
  them through an HTTP request. It will also return their status codes, displaying an "OK ✔"
  notification for successful requests and a "Fail ✘" notification otherwise. If no links or
@@ -99,7 +99,7 @@ If only the `--valid` option is provided (`npx karlamac-md-links <path-to-file> 
 
 ![response](./valid.png)
 
-If only the `--stats` option is provided (`npx karlamac-md-links <path-to-file> --stats`),
+If only the `--stats` option is provided (`npx karlamacedo-md-links <path-to-file> --stats`),
  it will return the .md files found and the links contained within each file. If no links
  or files are found, a notification will be displayed. Additionally, it will display a 
  statistics section showing the total number of links found in the search and how many of
@@ -107,7 +107,7 @@ If only the `--stats` option is provided (`npx karlamac-md-links <path-to-file> 
 
 ![response](./stats.png)
 
-If the `--valid` and `--stats` options are provided (`npx karlamac-md-links <path-to-file> --valid --stats`),
+If the `--valid` and `--stats` options are provided (`npx karlamacedo-md-links <path-to-file> --valid --stats`),
  it will return the .md files found, the links contained within each file, validate them 
  through an HTTP request, and display their status codes with an "OK ✔" notification for
  successful requests and a "Fail ✘" notification otherwise. If no links or files are found,
@@ -121,14 +121,14 @@ If the `--valid` and `--stats` options are provided (`npx karlamac-md-links <pat
 
 To use the library as an API (Application Programming Interface), follow these steps:
 
-- Fork the [GitHub repository](https://github.com/KarlaMacedo/DEV007-md-links).
+- Fork the [GitHub repository](https://github.com/karlamacedoedo/DEV007-md-links).
 
 - Open your terminal and navigate to the location where you want to save the project using
  the `cd` command. 
 
 - Run the following command:
 ```
-git clone https://github.com/KarlaMacedo/DEV007-md-links.git
+git clone https://github.com/karlamacedoedo/DEV007-md-links.git
 ```
 
 - Open the project folder in your preferred code editor.
