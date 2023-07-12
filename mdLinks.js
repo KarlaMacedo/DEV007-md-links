@@ -1,5 +1,7 @@
+// importar librerías
 import chalk from 'chalk';
 
+// importar funciones
 import {
   getFilesRecursively, processMarkdownFile, processMarkdownFileWithStatus,
 } from './functions.js';
