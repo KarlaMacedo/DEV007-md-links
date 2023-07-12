@@ -1,12 +1,12 @@
 {
-  "name": "karlamac-md-links",
+  "name": "karlamacedo-md-links",
   "version": "0.1.0",
   "type": "module",
   "bin": {
     "md-links": "./cli.js"
   },
   "license": "ISC",
-  "keywords": [],
+  "keywords": ["md-links", "markdown", "search", "links"],
   "testEnvironment": "node",
   "engines": {
     "node": ">=16.x"
