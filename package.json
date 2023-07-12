@@ -6,7 +6,12 @@
     "md-links": "./cli.js"
   },
   "license": "ISC",
-  "keywords": ["md-links", "markdown", "search", "links"],
+  "keywords": [
+    "md-links",
+    "markdown",
+    "search",
+    "links"
+  ],
   "testEnvironment": "node",
   "engines": {
     "node": ">=16.x"
@@ -49,6 +54,7 @@
     "jest": "^29.5.0",
     "jsdom": "^22.1.0",
     "karlamac-md-links": "^0.1.0",
+    "karlamacedo-md-links": "^0.1.0",
     "markdown-it": "^13.0.1",
     "marked": "^0.7.0"
   }
