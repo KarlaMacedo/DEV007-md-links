@@ -13,11 +13,12 @@ describe('convertAbsolute', () => {
   });
 
   test('Debería retornar la path absoluta', async () => {
-    expect(convertAbsolute('./test/tryOut/file11.md')).toBe('C:\\Users\\Karla\\Desktop\\Javascript\\Laboratoria\\Proyecto4\\DEV007-md-links\\test\\tryOut\\file11.md');
+    expect(convertAbsolute('./test/tryOut/file11.md')).toEqual('C:\\Users\\Karla\\Desktop\\Javascript\\Laboratoria\\Proyecto4\\DEV007-md-links\\test\\tryOut\\file11.md');
   });
 
   test('Debería retornar la path si ya es absoluta', async () => {
-    expect(convertAbsolute('C:\\Users\\Karla\\Desktop\\Javascript\\Laboratoria\\Proyecto4\\DEV007-md-links\\test\\tryOut\\file11.md')).toBe('C:\\Users\\Karla\\Desktop\\Javascript\\Laboratoria\\Proyecto4\\DEV007-md-links\\test\\tryOut\\file11.md');
+    const abs = 'C:\\Users\\Karla\\Desktop\\Javascript\\Laboratoria\\Proyecto4\\DEV007-md-links\\test\\tryOut\\file11.md';
+    expect(convertAbsolute(abs)).toEqual(abs);
   });
 });
 
@@ -103,7 +104,7 @@ describe('unionPaths', () => {
   });
 
   test('Debería unir la ruta del directorio con la de sus archivos', async () => {
-    expect(unionPaths('./test/tryOut/src', 'index.js')).toBe('test\\tryOut\\src\\index.js');
+    expect(unionPaths('./test/tryOut/src', 'index.js')).toEqual('test\\tryOut\\src\\index.js');
   });
 });
 
